@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Николай Троицкий — визитка</title>
+  <style>
+    :root {
+      --bg-dark: #0c1222;
+      --gradient-start: #0f172a;
+      --gradient-mid: #0d3d38;
+      --gradient-end: #0c1222;
+      --accent: #14b8a6;
+      --accent-hover: #5eead4;
+      --accent-glow: rgba(20, 184, 166, 0.35);
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(160deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1rem 3rem;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    #hero {
+      text-align: center;
+      padding: 3rem 0 4rem;
+      animation: fadeInUp 0.7s ease-out both;
+    }
+    #hero h1 {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    #hero .title {
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    #hero .tagline {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 28em;
+      margin: 0 auto;
+    }
+
+    /* About */
+    #about {
+      padding: 2rem 0 3rem;
+      animation: fadeInUp 0.7s ease-out 0.2s both;
+    }
+    #about h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 1.25rem;
+    }
+    #about p {
+      margin: 0 0 1rem;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    #about p:last-child { margin-bottom: 0; }
+
+    /* Skills */
+    #skills {
+      padding: 2rem 0 3rem;
+      animation: fadeInUp 0.7s ease-out 0.3s both;
+    }
+    #skills h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 1.25rem;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .skill-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .skill-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(20, 184, 166, 0.15);
+      border-color: rgba(20, 184, 166, 0.2);
+    }
+    .skill-card .emoji {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+    .skill-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 0.35rem;
+    }
+    .skill-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Contacts */
+    #contacts {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+      animation: fadeInUp 0.7s ease-out 0.5s both;
+    }
+    #contacts h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 1.25rem;
+    }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+    .contact-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .contact-links a:hover {
+      color: var(--accent-hover);
+      background: rgba(20, 184, 166, 0.12);
+      border-color: rgba(20, 184, 166, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+    .contact-links a:active {
+      transform: translateY(0);
+    }
+    .contact-links svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      transition: transform 0.25s ease;
+    }
+    .contact-links a:hover svg {
+      transform: scale(1.1);
+    }
+
+    @media (min-width: 768px) {
+      body { padding: 3rem 1.5rem 4rem; }
+      #hero { padding: 4rem 0 5rem; }
+      #about { padding: 2.5rem 0 3.5rem; }
+      #about p { font-size: 1rem; }
+      #skills { padding: 2.5rem 0 3.5rem; }
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+      }
+      #contacts { padding: 2.5rem 0; }
+    }
+    @media (min-width: 900px) {
+      .skills-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section id="hero">
+      <h1>Николай Троицкий</h1>
+      <p class="title">Студент, инвестор</p>
+      <p class="tagline">Строительство и финансы. Учусь в Ростове-на-Дону, занимаюсь криптовалютой и спортом.</p>
+    </section>
+
+    <section id="about">
+      <h2>О себе</h2>
+      <p>Учусь в инженерном вузе Ростова-на-Дону по направлению строительство. Интересуюсь криптовалютой и инвестициями и совмещаю учёбу с личным развитием в этой сфере.</p>
+      <p>Занимаюсь спортом и считаю важным баланс между учёбой, финансами и здоровьем.</p>
+      <p>Планирую развиваться в области строительства и инвестиций и дальше.</p>
+    </section>
+
+    <section id="skills">
+      <h2>Мои навыки</h2>
+      <div class="skills-grid">
+        <article class="skill-card">
+          <span class="emoji" aria-hidden="true">🏗️</span>
+          <h3>Строительство</h3>
+          <p>Учёба и интерес к инженерным решениям, проектированию и строительным технологиям.</p>
+        </article>
+        <article class="skill-card">
+          <span class="emoji" aria-hidden="true">₿</span>
+          <h3>Криптовалюты</h3>
+          <p>Понимание рынка, блокчейна и практический опыт работы с цифровыми активами.</p>
+        </article>
+        <article class="skill-card">
+          <span class="emoji" aria-hidden="true">📈</span>
+          <h3>Инвестиции</h3>
+          <p>Основы анализа и управления капиталом, долгосрочное мышление.</p>
+        </article>
+        <article class="skill-card">
+          <span class="emoji" aria-hidden="true">💪</span>
+          <h3>Спорт</h3>
+          <p>Регулярные тренировки и поддержание баланса между работой и здоровьем.</p>
+        </article>
+        <article class="skill-card">
+          <span class="emoji" aria-hidden="true">📊</span>
+          <h3>Аналитика</h3>
+          <p>Оценка рисков, чтение графиков и данных для принятия решений.</p>
+        </article>
+        <article class="skill-card">
+          <span class="emoji" aria-hidden="true">📚</span>
+          <h3>Саморазвитие</h3>
+          <p>Постоянное обучение в сфере финансов, строительства и личной эффективности.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacts">
+      <h2>Контакты</h2>
+      <div class="contact-links">
+        <a href="mailto:your@email.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email
+        </a>
+        <a href="https://t.me/your_username" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Telegram
+        </a>
+        <a href="https://vk.com/your_page" target="_blank" rel="noopener noreferrer" aria-label="VK">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.678.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
+          VK
+        </a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
