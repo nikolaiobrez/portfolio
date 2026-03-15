@@ -13,3 +13,4 @@ desktop.ini
 # Local copy with real contact details (keep this file out of the repo)
 index.local.html
 index-with-secrets.html
+.vercel

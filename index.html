@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Николай Троицкий — визитка</title>
+  <script>
+    (function() {
+      var theme = localStorage.getItem('portfolio-theme');
+      if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
   <style>
     :root {
       --bg-dark: #0c1222;
@@ -15,6 +21,25 @@
       --accent-glow: rgba(20, 184, 166, 0.35);
       --text: #e2e8f0;
       --text-muted: #94a3b8;
+      --card-bg: rgba(15, 23, 42, 0.6);
+      --card-border: rgba(148, 163, 184, 0.12);
+      --input-bg: rgba(15, 23, 42, 0.8);
+      --input-border: rgba(148, 163, 184, 0.2);
+    }
+
+    [data-theme="light"] {
+      --gradient-start: #f0fdfa;
+      --gradient-mid: #ccfbf1;
+      --gradient-end: #f0fdfa;
+      --accent: #0d9488;
+      --accent-hover: #0f766e;
+      --accent-glow: rgba(13, 148, 136, 0.25);
+      --text: #134e4a;
+      --text-muted: #0f766e;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(13, 148, 136, 0.2);
+      --input-bg: rgba(255, 255, 255, 0.9);
+      --input-border: rgba(13, 148, 136, 0.3);
     }
 
     @keyframes fadeInUp {
@@ -52,13 +77,19 @@
       padding: 3rem 0 4rem;
       animation: fadeInUp 0.7s ease-out both;
     }
+    #hero .visit-count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
     #hero h1 {
       font-size: clamp(1.75rem, 5vw, 2.5rem);
       font-weight: 700;
       margin: 0 0 0.5rem;
       letter-spacing: -0.02em;
-      color: #fff;
+      color: var(--text);
     }
+    [data-theme="light"] #hero h1 { color: #0f766e; }
     #hero .title {
       font-size: 1.1rem;
       color: var(--accent);
@@ -75,7 +106,6 @@
     /* About */
     #about {
       padding: 2rem 0 3rem;
-      animation: fadeInUp 0.7s ease-out 0.2s both;
     }
     #about h2 {
       font-size: 1.15rem;
@@ -95,7 +125,6 @@
     /* Skills */
     #skills {
       padding: 2rem 0 3rem;
-      animation: fadeInUp 0.7s ease-out 0.3s both;
     }
     #skills h2 {
       font-size: 1.15rem;
@@ -110,9 +139,46 @@
       grid-template-columns: 1fr;
       gap: 1rem;
     }
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--accent);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .theme-toggle:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px var(--accent-glow);
+      border-color: var(--accent);
+    }
+    .theme-toggle svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* Scroll-reveal */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .skill-card {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.12);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 1.25rem;
       transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -130,7 +196,7 @@
     .skill-card h3 {
       font-size: 1rem;
       font-weight: 600;
-      color: #fff;
+      color: var(--text);
       margin: 0 0 0.35rem;
     }
     .skill-card p {
@@ -143,8 +209,87 @@
     /* Contacts */
     #contacts {
       padding: 2rem 0;
-      border-top: 1px solid rgba(148, 163, 184, 0.15);
-      animation: fadeInUp 0.7s ease-out 0.5s both;
+      border-top: 1px solid var(--card-border);
+    }
+
+    /* Contact form */
+    #contact-form-section {
+      padding: 2rem 0 3rem;
+      border-top: 1px solid var(--card-border);
+    }
+    #contact-form-section h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 1.25rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 10px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+      opacity: 0.8;
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-group .error {
+      font-size: 0.8rem;
+      color: #f87171;
+      margin-top: 0.35rem;
+    }
+    [data-theme="light"] .form-group .error { color: #b91c1c; }
+    .form-submit {
+      margin-top: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0f172a;
+      background: var(--accent);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .form-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+    .form-submit:active { transform: translateY(0); }
+    [data-theme="light"] .form-submit { color: #f0fdfa; }
+    .form-success {
+      font-size: 0.95rem;
+      color: var(--accent);
+      margin-top: 1rem;
     }
     #contacts h2 {
       font-size: 1.15rem;
@@ -210,21 +355,27 @@
   </style>
 </head>
 <body>
+  <button type="button" class="theme-toggle" aria-label="Переключить тему (светлая/тёмная)" title="Тема">
+    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+  </button>
+
   <div class="container">
     <section id="hero">
       <h1>Николай Троицкий</h1>
       <p class="title">Студент, инвестор</p>
       <p class="tagline">Строительство и финансы. Учусь в Ростове-на-Дону, занимаюсь криптовалютой и спортом.</p>
+      <p class="visit-count" id="visit-count" aria-live="polite"></p>
     </section>
 
-    <section id="about">
+    <section id="about" class="scroll-reveal">
       <h2>О себе</h2>
       <p>Учусь в инженерном вузе Ростова-на-Дону по направлению строительство. Интересуюсь криптовалютой и инвестициями и совмещаю учёбу с личным развитием в этой сфере.</p>
       <p>Занимаюсь спортом и считаю важным баланс между учёбой, финансами и здоровьем.</p>
       <p>Планирую развиваться в области строительства и инвестиций и дальше.</p>
     </section>
 
-    <section id="skills">
+    <section id="skills" class="scroll-reveal">
       <h2>Мои навыки</h2>
       <div class="skills-grid">
         <article class="skill-card">
@@ -260,7 +411,30 @@
       </div>
     </section>
 
-    <section id="contacts">
+    <section id="contact-form-section" class="scroll-reveal">
+      <h2>Написать мне</h2>
+      <form id="contact-form" novalidate>
+        <div class="form-group">
+          <label for="form-name">Имя *</label>
+          <input type="text" id="form-name" name="name" required minlength="2" maxlength="100" placeholder="Как к вам обращаться" autocomplete="name">
+          <p class="error" id="error-name" role="alert"></p>
+        </div>
+        <div class="form-group">
+          <label for="form-email">Email *</label>
+          <input type="email" id="form-email" name="email" required placeholder="email@example.com" autocomplete="email">
+          <p class="error" id="error-email" role="alert"></p>
+        </div>
+        <div class="form-group">
+          <label for="form-message">Сообщение *</label>
+          <textarea id="form-message" name="message" required minlength="10" maxlength="2000" placeholder="Ваше сообщение (минимум 10 символов)"></textarea>
+          <p class="error" id="error-message" role="alert"></p>
+        </div>
+        <button type="submit" class="form-submit">Отправить</button>
+        <p class="form-success" id="form-success" style="display:none">Сообщение отправлено. Спасибо!</p>
+      </form>
+    </section>
+
+    <section id="contacts" class="scroll-reveal">
       <h2>Контакты</h2>
       <div class="contact-links">
         <a href="mailto:your@email.com" aria-label="Email">
@@ -278,5 +452,114 @@
       </div>
     </section>
   </div>
+
+  <script>
+    (function() {
+      var KEY_THEME = 'portfolio-theme';
+      var KEY_VISITS = 'portfolio-visits';
+
+      // ——— 1) Theme switcher + localStorage ———
+      var html = document.documentElement;
+      var btn = document.querySelector('.theme-toggle');
+      var iconSun = document.querySelector('.theme-toggle .icon-sun');
+      var iconMoon = document.querySelector('.theme-toggle .icon-moon');
+
+      function setTheme(light) {
+        if (light) {
+          html.setAttribute('data-theme', 'light');
+          localStorage.setItem(KEY_THEME, 'light');
+          if (iconSun) iconSun.style.display = 'none';
+          if (iconMoon) iconMoon.style.display = '';
+        } else {
+          html.removeAttribute('data-theme');
+          localStorage.setItem(KEY_THEME, 'dark');
+          if (iconSun) iconSun.style.display = '';
+          if (iconMoon) iconMoon.style.display = 'none';
+        }
+      }
+
+      if (btn) {
+        var isLight = html.getAttribute('data-theme') === 'light';
+        if (iconSun) iconSun.style.display = isLight ? 'none' : '';
+        if (iconMoon) iconMoon.style.display = isLight ? '' : 'none';
+        btn.addEventListener('click', function() {
+          isLight = html.getAttribute('data-theme') !== 'light';
+          setTheme(isLight);
+        });
+      }
+
+      // ——— 2) Fade-in on scroll ———
+      var reveals = document.querySelectorAll('.scroll-reveal');
+      function reveal() {
+        reveals.forEach(function(el) {
+          var top = el.getBoundingClientRect().top;
+          var win = window.innerHeight;
+          if (top < win - 80) el.classList.add('visible');
+        });
+      }
+      window.addEventListener('scroll', reveal);
+      window.addEventListener('load', reveal);
+      reveal();
+
+      // ——— 3) Visit counter (localStorage) ———
+      var countEl = document.getElementById('visit-count');
+      if (countEl) {
+        var n = parseInt(localStorage.getItem(KEY_VISITS) || '0', 10) + 1;
+        localStorage.setItem(KEY_VISITS, String(n));
+        var word = n === 1 ? 'визит' : n < 5 ? 'визита' : 'визитов';
+        countEl.textContent = 'Вы здесь ' + n + ' ' + word;
+      }
+
+      // ——— 4) Form «Написать мне» + validation ———
+      var form = document.getElementById('contact-form');
+      if (form) {
+        var nameInput = document.getElementById('form-name');
+        var emailInput = document.getElementById('form-email');
+        var messageInput = document.getElementById('form-message');
+        var errName = document.getElementById('error-name');
+        var errEmail = document.getElementById('error-email');
+        var errMessage = document.getElementById('error-message');
+        var successEl = document.getElementById('form-success');
+
+        function showError(el, msg) {
+          if (!el) return;
+          el.textContent = msg || '';
+          el.style.display = msg ? 'block' : 'none';
+        }
+
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          showError(errName, '');
+          showError(errEmail, '');
+          showError(errMessage, '');
+          successEl.style.display = 'none';
+
+          var name = (nameInput && nameInput.value) ? nameInput.value.trim() : '';
+          var email = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
+          var message = (messageInput && messageInput.value) ? messageInput.value.trim() : '';
+          var valid = true;
+
+          if (name.length < 2) {
+            showError(errName, 'Введите имя (минимум 2 символа)');
+            valid = false;
+          }
+          var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRe.test(email)) {
+            showError(errEmail, 'Введите корректный email');
+            valid = false;
+          }
+          if (message.length < 10) {
+            showError(errMessage, 'Сообщение не менее 10 символов');
+            valid = false;
+          }
+
+          if (!valid) return;
+
+          successEl.style.display = 'block';
+          form.reset();
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

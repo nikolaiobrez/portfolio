@@ -33,3 +33,13 @@
   - файл `index.local.html` уже добавлен в `.gitignore` и не попадёт в репозиторий.
 
 В публичный репозиторий добавляйте только версию с заглушками или без реальных контактов.
+
+## Деплой на Vercel (автодеплой при push в master)
+
+При каждом `git push` в ветку `master` сайт автоматически деплоится на Vercel через GitHub Actions.
+
+**Однократная настройка:** добавьте в репозиторий GitHub секрет:
+1. GitHub → репозиторий **portfolio** → Settings → Secrets and variables → Actions.
+2. New repository secret: имя `VERCEL_TOKEN`, значение — [токен из Vercel](https://vercel.com/account/tokens) (Create Token).
+
+После этого любой `git push origin master` запускает деплой; продакшен-URL проекта: https://portfolio-eta-seven-lh1a6fq5rj.vercel.app
